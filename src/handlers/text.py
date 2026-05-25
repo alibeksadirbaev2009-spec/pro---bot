@@ -1,5 +1,4 @@
 from aiogram import F, Router
-from aiogram.types import Message
 from aiogram.types import ( 
     Message, 
     KeyboardButton, 
@@ -59,10 +58,10 @@ Bot yaratuvchisi: @a1ibek2""")
 async def text(message: Message):
     k = [
         [
-            KeyboardButton(text="❌Biykar etiw")
+            KeyboardButton(text="Kontact jiberiw", request_contact=True)
         ],
         [
-            KeyboardButton(text="Kontact jiberiw", request_contact=True)
+            KeyboardButton(text="❌Biykar etiw")
         ]
     ]
     mark = ReplyKeyboardMarkup(keyboard=k, resize_keyboard=True)
