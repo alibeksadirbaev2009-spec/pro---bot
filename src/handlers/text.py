@@ -1,34 +1,18 @@
 from aiogram import F, Router
-from aiogram.types import ( 
-    Message, 
-    KeyboardButton, 
-    ReplyKeyboardMarkup, 
-    InlineKeyboardButton, 
-    InlineKeyboardMarkup, 
-    WebAppInfo)
-
+from aiogram.types import Message
+from src.all_keyboard.inlinekeyboard.text import anime_izlew, vip
+from src.all_keyboard.keyboard.text import hamiyliq
+from src.all_keyboard.keyboard.start import baslaw
+from src.all_keyboard.inlinekeyboard.download import download
 router = Router()
 
 
 # 🔎Anime izlew
 @router.message(F.text == "🔎Anime izlew")
 async def text(message: Message):
-    l = [
-        [
-            InlineKeyboardButton(text="🔎At boyinsha izlew", callback_data="at")
-        ],
-        [
-            InlineKeyboardButton(text="🔎Kod boyinsha izlew", callback_data="kod")
-        ],
-        [
-            InlineKeyboardButton(text="🔎Ha'mme animeler", callback_data="ha'mme")
-        ],
-        [
-            InlineKeyboardButton(text="🔎En' ko'p ko'rilgen animeler", callback_data="top")
-        ]
-    ]
-    mark = InlineKeyboardMarkup(inline_keyboard=l)
-    await message.answer("Quydag'lardan birin tan'lan'", reply_markup=mark)
+    btns = anime_izlew()
+    await message.answer("Quydag'lardan birin tan'lan'", reply_markup=btns)
+
 
 # 📚Qollanba
 @router.message(F.text == "📚Qollanba")
@@ -52,89 +36,65 @@ Agar savol yoki muammo bo‘lsa, menyudan 👨‍💻 Admin bilan bog‘lanish t
 Anime qidirish → Kerakli animeni kodini yoki nomini yuboring→ Tomosha qilish
 
 Bot yaratuvchisi: @a1ibek2""")
-    
+
+
 # 💵Reklama ha'm hamiyliq
 @router.message(F.text == "💵Reklama ha'm hamiyliq")
 async def text(message: Message):
-    k = [
-        [
-            KeyboardButton(text="Kontact jiberiw", request_contact=True)
-        ],
-        [
-            KeyboardButton(text="❌Biykar etiw")
-        ]
-    ]
-    mark = ReplyKeyboardMarkup(keyboard=k, resize_keyboard=True)
+    btns = hamiyliq()
     await message.answer(f"""
 Botqa kontakt nomerinizdi qaldirin adminler o'zi qabar jiberedi!
 Iltimas adminlerdi bolar bolmas na'rseler menen waqtin alman'. 
 Eger sonday jag'day bolsa BLOK!!!
-""", reply_markup=mark)
+""", reply_markup=btns)
 
+
+# 🏠main
 @router.message(F.text == "❌Biykar etiw")
 async def main(message: Message):
-    k = [
-        [
-            KeyboardButton(text="🔎Anime izlew")
-        ],
-        [
-            KeyboardButton(text="📚Qollanba"),
-            KeyboardButton(text="💵Reklama ha'm hamiyliq")
-        ],
-        [
-            KeyboardButton(text="💎Vip satip aliw"),
-            KeyboardButton(text="👤Profile")
-        ]
-    ]
-    mark = ReplyKeyboardMarkup(keyboard=k, resize_keyboard=True)
-    await message.answer(f"🏠Bas menug'a qayttin'iz:", reply_markup=mark)
+    btns = baslaw()
+    await message.answer(f"🏠Bas menug'a qayttin'iz:", reply_markup=btns)
+
 
 # 💎Vip satip aliw
 @router.message(F.text == "💎Vip satip aliw")
 async def text(message: Message):
-    m = [
-        [
-            InlineKeyboardButton(text="💎1 ayliq - 9,000 sum", callback_data="1ay")
-        ],
-        [
-            InlineKeyboardButton(text="💎3 ayliq - 40,000 sum", callback_data="3ay")
-        ],
-        [
-            InlineKeyboardButton(text="💎6 ayliq - 75,000 sum", callback_data="6ay")
-        ]
-    ]
+    btns = vip()
+    await message.answer("💎 VIP TARIFLER:\nVIP arqali ma'jbu'riy obunalarsiz paydlanasiz.\nKerekli tarifti tan'lan':",
+    reply_markup=btns)
 
-    mark = InlineKeyboardMarkup(inline_keyboard=m)
-    await message.answer("""
-    💎 VIP TARIFLER:
-    VIP arqali ma'jbu'riy obunalarsiz paydlanasiz.
-    Kerekli tarifti tan'lan':
-    """,
-    reply_markup=mark)
 
+# 🔙back
 @router.message(F.text == "🔙Artqa")
 async def main(message:Message):
-    k = [
-        [
-            KeyboardButton(text="🔎Anime izlew")
-        ],
-        [
-            KeyboardButton(text="📚Qollanba"),
-            KeyboardButton(text="💵Reklama ha'm hamiyliq")
-        ],
-        [
-            KeyboardButton(text="💎Vip satip aliw"),
-            KeyboardButton(text="👤Profile")
-        ]
-    ]
-    mark = ReplyKeyboardMarkup(keyboard=k, resize_keyboard=True)
-    await message.answer(f"🏠Bas menug'a qayttin'iz:", reply_markup=mark)
+    btn = baslaw()
+    await message.answer(f"🏠Bas menug'a qayttin'iz:", reply_markup=btn)
+
 
 # 👤Profile
 @router.message(F.text == "👤Profile")
 async def text(message: Message):
     await message.answer(f"Waqtinshaliq jabiq!!!")
 
+
+# anime - 1
+@router.message(F.text == "Yolg'izlikda daraja ko'tarish")
+async def text(message: Message):
+    btns = download()
+    await message.answer(f"""
+🟦 1-fasl
+📅 Chiqqan: 2024-yil (yanvar–mart)
+🎬 Qism: 12 ta episode
+📖 Hikoya: Jin-Woo zaif hunterdan “system” olishi va kuchayishni boshlashi
+🟨 2-fasl
+📅 Chiqqan: 2025-yil
+🎬 Qism: 13 ta episode
+📖 Hikoya: Jin-Woo yanada kuchli bo‘lib, katta janglar boshlanadi
+📌 Umumiy
+🧩 Hozircha: 2 fasl
+🎯 Har fasl: ~12–13 qism
+⚔️ Janr: Action, Fantasy, Level-up system
+""", reply_markup=btns)
 # text
 @router.message(F.text)
 async def text(message:Message):

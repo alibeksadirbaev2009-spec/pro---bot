@@ -2,11 +2,11 @@
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher, F
-from .config import settigns
+from .config import settings
 from .handlers import routers
 from .utils.my_commands import my_commands
 
-bot = Bot(settigns.TOKEN)
+bot = Bot(settings.TOKEN)
 dp = Dispatcher()
 
 
